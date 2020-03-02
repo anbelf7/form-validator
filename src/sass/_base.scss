@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+$light-color: #f9fafb;
+$white-color: #ffffff;
+$black-color: #282828;
+$success-color: #2ecc71;
+$error-color: #e74c3c;
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; /* 1rem = 10px,  10px/16px = 62.5% */
+}
+body {
+  font-size: 1.6rem;
+  color: $black-color;
+  background-color: $light-color;
+  font-family: 'Open Sans', sans-serif;
+}

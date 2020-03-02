@@ -1,0 +1,12 @@
+{
+  "name": "document",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "author": "Andrea Belfiore",
+  "license": "ISC"
+}
