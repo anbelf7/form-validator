@@ -4,6 +4,8 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+
+  background: linear-gradient(135deg, #0ff0b3 0%, #036ed9 100%);
 }
 .container {
   background-color: $white-color;
@@ -34,6 +36,9 @@ body {
         label {
           color: $error-color;
         }
+        small {
+          visibility: visible;
+        }
       }
       label {
         display: block;
@@ -41,33 +46,43 @@ body {
         color: #777;
       }
       input {
+        background-color: transparent;
         display: block;
         width: 30rem;
         padding: 0.5rem 1rem 1rem 1rem;
         font-size: 1.5rem;
         border: 0;
         border-bottom: 2px solid #ccc;
-
+        transition: all 0.4s ease;
         &:focus {
           outline: none;
-          border-bottom: 2px solid #777;
+          border-bottom: 2px solid $primary-color;
         }
       }
       small {
         font-size: 1.1rem;
+        color: $error-color;
         display: block;
         visibility: hidden;
       }
     }
     button {
+      cursor: pointer;
       width: 100%;
-      padding: 1rem;
-      background-color: blue;
+      padding: 1.5rem;
+      // background: linear-gradient(135deg, #0ff0b3 0%, #0ff0b3 100%);
+      // background: linear-gradient(135deg, #0ff0b3 0%, #036ed9 100%);
+      background: #228cf0;
+
       color: $white-color;
       border: none;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       border-radius: 5px;
       margin-top: 5rem;
+      transition: all 0.4s ease;
+      &:hover {
+        background: $primary-color;
+      }
     }
   }
 }
