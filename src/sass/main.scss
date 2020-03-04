@@ -44,6 +44,9 @@ body {
         display: block;
         font-size: 1.4rem;
         color: #777;
+        &.active {
+          color: $primary-color;
+        }
       }
       input {
         background-color: transparent;

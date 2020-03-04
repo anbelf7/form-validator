@@ -4,6 +4,7 @@ const username = document.getElementById('username');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 const password2 = document.getElementById('password2');
+const label = document.querySelectorAll('.form-control label');
 
 // Mostra successo
 const showSuccess = input => {
@@ -29,6 +30,20 @@ const checkRequired = inputArr => {
     }
   });
 };
+
+// Seleziono input al click
+document.addEventListener('click', element => {
+  // Reset classi label
+  label.forEach(e => {
+    // e.className = '';
+    e.classList.remove('active');
+    console.log(e);
+  });
+
+  if (element.target.localName === 'input') {
+    element.target.labels[0].classList.add('active');
+  }
+});
 
 // Invio form
 form.addEventListener('submit', e => {
