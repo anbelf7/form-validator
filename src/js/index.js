@@ -5,6 +5,7 @@ const email = document.getElementById('email');
 const password = document.getElementById('password');
 const password2 = document.getElementById('password2');
 const label = document.querySelectorAll('.form-control label');
+const inputArr = [username, email, password, password2];
 
 // Mostra successo
 const showSuccess = input => {
@@ -20,6 +21,16 @@ const showError = (input, message) => {
   small.innerText = message;
 };
 
+// Controllo email
+const checkEmail = input => {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (re.test(input.value.trim())) {
+    showSuccess(input);
+  } else {
+    showError(input, 'Email is not valid');
+  }
+};
+
 // Controllo inserimento
 const checkRequired = inputArr => {
   inputArr.forEach(input => {
@@ -30,6 +41,21 @@ const checkRequired = inputArr => {
     }
   });
 };
+
+// Controllo lunghezza
+// const checkLength = (inputArr, min, max) => {
+//   inputArr.forEach((input, i) => {
+//     if (input.value < min) {
+//       small[i].innerText = `${input.id} è minore di ${min}`;
+//     }
+//     if (input.value > max) {
+//       small[i].innerText = `${input.id} è maggiore di ${max}`;
+//       console.log('maggiore');
+//     }
+//   });
+//   // console.log(username.value);
+//   // console.log(password.value);
+// };
 
 // Seleziono input al click
 document.addEventListener('click', element => {
@@ -49,5 +75,6 @@ document.addEventListener('click', element => {
 form.addEventListener('submit', e => {
   e.preventDefault();
 
-  checkRequired([username, email, password, password2]);
+  checkRequired(inputArr);
+  checkEmail(email);
 });
