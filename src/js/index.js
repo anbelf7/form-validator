@@ -6,6 +6,7 @@ const password = document.getElementById('password');
 const password2 = document.getElementById('password2');
 const label = document.querySelectorAll('.form-control label');
 const inputArr = [username, email, password, password2];
+const valid = document.querySelector('.valid');
 
 // Mostra successo
 const showSuccess = input => {
@@ -19,6 +20,12 @@ const showError = (input, message) => {
   formControl.className = 'form-control error';
   const small = formControl.querySelector('small');
   small.innerText = message;
+};
+
+// Nome campo input
+const getFieldName = input => {
+  // prendere solo la prima lettera dell'input e renderla maiuscola + il resto dell'input senza la prima lettera
+  return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 };
 
 // Controllo email
@@ -35,27 +42,44 @@ const checkEmail = input => {
 const checkRequired = inputArr => {
   inputArr.forEach(input => {
     if (input.value.trim() === '') {
-      showError(input, 'Messaggio errore');
+      showError(input, `${getFieldName(input)} is required`);
     } else {
       showSuccess(input);
+      checkEmail(email);
+      checkLength(inputArr, 6, 15);
+      checkPasswordMatch(password, password2);
     }
   });
 };
 
 // Controllo lunghezza
-// const checkLength = (inputArr, min, max) => {
-//   inputArr.forEach((input, i) => {
-//     if (input.value < min) {
-//       small[i].innerText = `${input.id} è minore di ${min}`;
-//     }
-//     if (input.value > max) {
-//       small[i].innerText = `${input.id} è maggiore di ${max}`;
-//       console.log('maggiore');
-//     }
-//   });
-//   // console.log(username.value);
-//   // console.log(password.value);
-// };
+const checkLength = (inputArr, min, max) => {
+  // Array senza email
+  const inputArrNoEmail = inputArr.filter(item => {
+    return item.id !== 'email';
+  });
+  inputArrNoEmail.forEach(input => {
+    if (input.value.length < min) {
+      showError(
+        input,
+        `${getFieldName(input)} must be at least ${min} characters`
+      );
+    }
+    if (input.value.length > max) {
+      showError(
+        input,
+        `${getFieldName(input)} must be less than ${max} characters`
+      );
+    }
+  });
+};
+
+// Controllo password
+const checkPasswordMatch = (input1, input2) => {
+  if (input1.value !== input2.value) {
+    showError(input2, 'Password not match');
+  }
+};
 
 // Seleziono input al click
 document.addEventListener('click', element => {
@@ -63,7 +87,6 @@ document.addEventListener('click', element => {
   label.forEach(e => {
     // e.className = '';
     e.classList.remove('active');
-    console.log(e);
   });
 
   if (element.target.localName === 'input') {
@@ -71,10 +94,28 @@ document.addEventListener('click', element => {
   }
 });
 
+// Controllo finale
+const checkFinal = () => {
+  let i = 0;
+  label.forEach(item => {
+    if (item.parentElement.className === 'form-control success') {
+      i = i + 1;
+      if (i === 4) {
+        valid.classList.add('show');
+      }
+    }
+  });
+};
+
+// Reset form
+valid.addEventListener('click', () => {
+  location.reload();
+});
+
 // Invio form
 form.addEventListener('submit', e => {
   e.preventDefault();
 
   checkRequired(inputArr);
-  checkEmail(email);
+  checkFinal();
 });
